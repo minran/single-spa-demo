@@ -5,7 +5,7 @@ registerApplication(
     () => import('./src/home/home.app.js'),
     (location) => location.pathname === "" ||
         location.pathname === "/" ||
-        location.pathname.startWith("/home")
+        location.pathname.startsWith("/home")
 )
 
 start();
