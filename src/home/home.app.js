@@ -4,9 +4,20 @@ import singleSpaReact from 'single-spa-react';
 import Home from './root.component.js';
 
 function domElementGetter() {
-    return document.getElementById("home")
+  let el = document.getElementById('home');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'home';
+    document.body.appendChild(el);
+  }
+
+  return el
 }
 
+if (process.env.NODE_ENV === 'development') {
+  // 开发环境直接渲染
+  ReactDOM.render(<RootComponent />, document.getElementById('root'))
+}
 const reactLifecycles = singleSpaReact({
     React,
     ReactDOM,
@@ -14,14 +25,15 @@ const reactLifecycles = singleSpaReact({
     domElementGetter,
 })
 
-export const bootstrap = [
-    reactLifecycles.bootstrap
-]
+export function bootstrap(props) {
+	return reactLifecycles.bootstrap(props);
+}
 
-export const mount = [
-  reactLifecycles.mount,
-];
+export function mount(props) {
+  return reactLifecycles.mount(props)
+}
 
-export const unmount = [
-  reactLifecycles.unmount,
-];
+export function unmount(props) {
+  return reactLifecycles.unmount(props)
+}
+;
