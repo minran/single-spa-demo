@@ -16,8 +16,9 @@ function domElementGetter() {
 
 if (process.env.NODE_ENV === 'development') {
   // 开发环境直接渲染
-  ReactDOM.render(<RootComponent />, document.getElementById('root'))
+  ReactDOM.render(<Home />, document.getElementById('home'))
 }
+
 const reactLifecycles = singleSpaReact({
     React,
     ReactDOM,
