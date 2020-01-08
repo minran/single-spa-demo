@@ -12,7 +12,7 @@ export async function loadApp(name, hash, appURL, storeURL, globalEventDistribut
 
     // try to import the store module
     try {
-        storeModule = storeURL ? await import(storeURL) : {storeInstance: null};
+        storeModule = storeURL ? await SystemJS.import(storeURL) : {storeInstance: null};
     } catch (e) {
         console.log(`Could not load store of app ${name}.`, e);
     }
@@ -26,5 +26,5 @@ export async function loadApp(name, hash, appURL, storeURL, globalEventDistribut
     }
 
     // register the app with singleSPA and pass a reference to the store of the app as well as a reference to the globalEventDistributor
-    singleSpa.declareChildApplication(name, () => import(appURL), pathnamePrefix(hash), customProps);
+    singleSpa.registerApplication(name, () => SystemJS.import(appURL), pathnamePrefix(hash), customProps);
 }
